@@ -1,0 +1,14 @@
+[Unit]
+Description=chibicc Explorer Web Server
+After=network.target
+
+[Service]
+Type=simple
+User=exedev
+WorkingDirectory=/home/exedev/chibicc/explorer
+ExecStart=/home/exedev/chibicc/explorer/chibicc-explorer
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

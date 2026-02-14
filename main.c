@@ -21,6 +21,8 @@ static bool opt_cc1;
 static bool opt_hash_hash_hash;
 static bool opt_static;
 static bool opt_shared;
+static bool opt_dump_tokens;
+static bool opt_dump_ast;
 static char *opt_MF;
 static char *opt_MT;
 static char *opt_o;
@@ -129,6 +131,16 @@ static void parse_args(int argc, char **argv) {
 
     if (!strcmp(argv[i], "-cc1")) {
       opt_cc1 = true;
+      continue;
+    }
+
+    if (!strcmp(argv[i], "--dump-tokens")) {
+      opt_dump_tokens = true;
+      continue;
+    }
+
+    if (!strcmp(argv[i], "--dump-ast")) {
+      opt_dump_ast = true;
       continue;
     }
 
@@ -550,7 +562,19 @@ static void cc1(void) {
     return;
   }
 
+  // If --dump-tokens is given, dump tokens as JSON and exit.
+  if (opt_dump_tokens) {
+    dump_tokens(tok);
+    return;
+  }
+
   Obj *prog = parse(tok);
+
+  // If --dump-ast is given, dump the AST as JSON and exit.
+  if (opt_dump_ast) {
+    dump_ast(prog);
+    return;
+  }
 
   // Open a temporary output buffer.
   char *buf;

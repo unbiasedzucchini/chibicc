@@ -405,6 +405,13 @@ Type *struct_type(void);
 void add_type(Node *node);
 
 //
+// dump.c
+//
+
+void dump_tokens(Token *tok);
+void dump_ast(Obj *prog);
+
+//
 // codegen.c
 //
 

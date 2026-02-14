@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chibicc Explorer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.css">
+</head>
+<body>
+  <header>
+    <h1>chibicc Explorer</h1>
+    <div class="header-right">
+      <select id="example-select">
+        <option value="">Load example…</option>
+        <option value="hello">Hello World</option>
+        <option value="fibonacci">Fibonacci</option>
+        <option value="structs">Structs</option>
+        <option value="pointers">Pointers</option>
+        <option value="loops">Loops & Arrays</option>
+      </select>
+      <button id="compile-btn">Compile</button>
+      <span id="status"></span>
+    </div>
+  </header>
+
+  <main>
+    <div class="source-panel" id="source-panel">
+      <textarea id="source-editor">int fibonacci(int n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+  return fibonacci(10);
+}</textarea>
+    </div>
+
+    <div class="output-panel" id="output-panel">
+      <div id="pipeline"></div>
+      <div id="detail-view" class="detail-view hidden"></div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/gas/gas.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
