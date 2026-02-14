@@ -416,6 +416,7 @@ void dump_ast(Obj *prog);
 //
 
 void codegen(Obj *prog, FILE *out);
+void codegen_wasm(Obj *prog, FILE *out);
 int align_to(int n, int align);
 
 //

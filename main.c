@@ -23,6 +23,7 @@ static bool opt_static;
 static bool opt_shared;
 static bool opt_dump_tokens;
 static bool opt_dump_ast;
+static bool opt_emit_wat;
 static char *opt_MF;
 static char *opt_MT;
 static char *opt_o;
@@ -141,6 +142,11 @@ static void parse_args(int argc, char **argv) {
 
     if (!strcmp(argv[i], "--dump-ast")) {
       opt_dump_ast = true;
+      continue;
+    }
+
+    if (!strcmp(argv[i], "--emit-wat")) {
+      opt_emit_wat = true;
       continue;
     }
 
@@ -581,8 +587,11 @@ static void cc1(void) {
   size_t buflen;
   FILE *output_buf = open_memstream(&buf, &buflen);
 
-  // Traverse the AST to emit assembly.
-  codegen(prog, output_buf);
+  // Traverse the AST to emit assembly (or WAT).
+  if (opt_emit_wat)
+    codegen_wasm(prog, output_buf);
+  else
+    codegen(prog, output_buf);
   fclose(output_buf);
 
   // Write the asembly text to a file.
